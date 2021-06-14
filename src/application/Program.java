@@ -20,9 +20,9 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("Enter full file path:");
-		String pathStr = "C://temp//employee.txt";//sc.nextLine();
+		String pathStr = sc.nextLine();
 		System.out.print("Enter salary: ");
-		double salary = 2000.00;//sc.nextDouble();
+		double salary = sc.nextDouble();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(pathStr))) {
 			
@@ -47,8 +47,11 @@ public class Program {
 					.sorted(comp)
 					.collect(Collectors.toList());
 			aboveSalary.forEach(System.out::println);
-			System.out.print("Sum of salary of people whose name starts with 'M': ");
 			
+			double startsWithLetter = list.stream().filter(x -> x.getName().charAt(0) == 'M')
+					.map(x -> x.getSalary())
+					.reduce(0.0, (x, y) -> x+y);
+			System.out.print("Sum of salary of people whose name starts with 'M': " + startsWithLetter);
 		}catch(IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
